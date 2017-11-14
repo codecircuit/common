@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <curand.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <time.h>
@@ -50,5 +51,15 @@ inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=t
    {
       fprintf(stderr,"GPUassert: %s %s %d\n", cudaGetErrorString(code), file, line);
       if (abort) exit(code);
+   }
+}
+
+#define checkCurandError(ans) { curandAssert((ans), __FILE__, __LINE__); }
+inline void curandAssert(curandStatus_t status, const char *file, int line, bool abort=true)
+{
+   if (status != CURAND_STATUS_SUCCESS) 
+   {
+      fprintf(stderr,"curand error: %s %d\n", file, line);
+      if (abort) exit(EXIT_FAILURE);
    }
 }
