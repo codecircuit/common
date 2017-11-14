@@ -15,8 +15,6 @@ using Duration = std::chrono::duration<double>;
 using std::cout;
 using std::endl;
 using std::flush;
-using SizeT = long long unsigned;
-using ShortT = int;
 
 #ifdef DEBUGMODE
 #define DEBUG(...) __VA_ARGS__
